@@ -18,8 +18,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.TitledBorder;
 
 import sim.tv2.PremierLeague.Events.Event;
@@ -67,13 +71,37 @@ public class Gui extends JFrame {
 	 * @param parser
 	 */
 	public Gui(PLParser parser){
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		}
+		
 		this.setParser(parser);
 		setupFrame();
 		setupTopPanel();
 		setupCenterPanel();
+		setupMenuBar();
 		this.setVisible(true);
 	}
 	
+	private void setupMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("Meny");
+		JMenu about = new JMenu("Om");
+		menuBar.add(menu);
+		menuBar.add(about);
+		
+		this.setJMenuBar(menuBar);
+		
+		
+	}
+
 	/**
 	 * Method to set up the JFrame of the application
 	 */
