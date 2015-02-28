@@ -21,7 +21,11 @@ public class Player {
 	}
 	
 	public String toString(){
-		return this.firstName + " " + this.lastName;
+		if(this.firstName.equals(this.lastName)){
+			return this.lastName;
+		} else {
+			return this.firstName + " " + this.lastName;
+		}
 	}
 
 	public String getFirstName() {
