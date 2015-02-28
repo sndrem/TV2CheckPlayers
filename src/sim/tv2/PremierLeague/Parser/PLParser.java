@@ -88,6 +88,8 @@ public class PLParser{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch(NullPointerException e){
+			e.printStackTrace();
 		}
 
 	} 

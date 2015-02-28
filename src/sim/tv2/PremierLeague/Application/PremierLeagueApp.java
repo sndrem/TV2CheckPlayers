@@ -3,9 +3,17 @@ package sim.tv2.PremierLeague.Application;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.SwingUtilities;
 
@@ -41,6 +49,67 @@ public class PremierLeagueApp{
 		for(Player player : players){
 			gui.getPlayerModel().addElement(player);
 		}
+	}
+	
+	// TODO Legg til metode for å lese fra fil
+	/**
+	 * Method to read the teams from a file
+	 */
+	@SuppressWarnings({ "unchecked", "resource" })
+	public static Map<String, Integer> loadTeams(String fileName){
+		FileInputStream inputStream = null;
+		ObjectInputStream objectInput = null;
+		
+		Map<String, Integer> teams = new HashMap<>();
+		try {
+			inputStream = new FileInputStream(fileName);
+			objectInput = new ObjectInputStream(inputStream);
+			teams = (Map<String, Integer>)objectInput.readObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				inputStream.close();
+				objectInput.close();
+			} catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return teams;
+	}
+	
+	/**
+	 * Method to save the hashMap of teams
+	 */
+	public static void saveTeams(Map<String, Integer> teams){
+		FileOutputStream outputStream = null;
+		ObjectOutputStream objectOutput = null;
+		try {
+			outputStream = new FileOutputStream("data.ser");
+			objectOutput = new ObjectOutputStream(outputStream);
+			objectOutput.writeObject(teams);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try{
+				outputStream.close();
+				objectOutput.close();
+			} catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	/**

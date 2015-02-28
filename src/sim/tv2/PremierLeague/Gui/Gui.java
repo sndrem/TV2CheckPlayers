@@ -30,6 +30,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.TitledBorder;
 
+import sim.tv2.PremierLeague.Application.PremierLeagueApp;
 import sim.tv2.PremierLeague.Events.Event;
 import sim.tv2.PremierLeague.Events.MenuEvent;
 import sim.tv2.PremierLeague.Parser.PLParser;
@@ -149,32 +150,39 @@ public class Gui extends JFrame {
 	 */
 	private void setupTopPanel(){
 		topPanel = new JPanel();
+		String fileName = "data.ser";
+		File teamsFile = new File(fileName);
 		setTeamsMap(new HashMap<>());
-		getTeamsMap().put("Chelsea", 723);
-		getTeamsMap().put("Man. City", 722);
-		getTeamsMap().put("Arsenal", 738);
-		getTeamsMap().put("Man. United", 735);
-		getTeamsMap().put("Southampton", 728);
-		getTeamsMap().put("Liverpool", 733);
-		getTeamsMap().put("Tottenham", 740);
-		getTeamsMap().put("West Ham", 724);
-		getTeamsMap().put("Swansea", 791);
-		getTeamsMap().put("Stoke", 794);
-		getTeamsMap().put("Newcastle", 736);
-		getTeamsMap().put("Everton", 730);
-		getTeamsMap().put("Crystal P.", 767);
-		getTeamsMap().put("West Brom.", 783);
-		getTeamsMap().put("Hull City", 834);
-		getTeamsMap().put("Sunderland", 737);
-		getTeamsMap().put("QPR", 768);
-		getTeamsMap().put("Burnley", 762);
-		getTeamsMap().put("Aston Villa", 732);
-		getTeamsMap().put("Leicester", 731);
+		if(teamsFile.exists()){
+			setTeamsMap(PremierLeagueApp.loadTeams(fileName));
+		} else {
+			getTeamsMap().put("Chelsea", 723);
+			getTeamsMap().put("Man. City", 722);
+			getTeamsMap().put("Arsenal", 738);
+			getTeamsMap().put("Man. United", 735);
+			getTeamsMap().put("Southampton", 728);
+			getTeamsMap().put("Liverpool", 733);
+			getTeamsMap().put("Tottenham", 740);
+			getTeamsMap().put("West Ham", 724);
+			getTeamsMap().put("Swansea", 791);
+			getTeamsMap().put("Stoke", 794);
+			getTeamsMap().put("Newcastle", 736);
+			getTeamsMap().put("Everton", 730);
+			getTeamsMap().put("Crystal P.", 767);
+			getTeamsMap().put("West Brom.", 783);
+			getTeamsMap().put("Hull City", 834);
+			getTeamsMap().put("Sunderland", 737);
+			getTeamsMap().put("QPR", 768);
+			getTeamsMap().put("Burnley", 762);
+			getTeamsMap().put("Aston Villa", 732);
+			getTeamsMap().put("Leicester", 731);
+		}
 
 		setComboBoxModel(new DefaultComboBoxModel<>());
 		for(String team : getTeamsMap().keySet()){
 			getComboBoxModel().addElement(team);
 		}
+		
 		setDirectoryButton(new JButton("Velg mappe"));
 		teamComboBox = new JComboBox<>(getComboBoxModel());
 		teamComboBox.addActionListener(new Event(this));

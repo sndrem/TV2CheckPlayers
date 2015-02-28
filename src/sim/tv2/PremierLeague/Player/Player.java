@@ -17,7 +17,6 @@ public class Player {
 		this.setFirstName(Util.getFirstName(name));
 		this.setLastName(Util.getLastName(name));
 		setPresent(false);
-		
 	}
 	
 	public String toString(){
