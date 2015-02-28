@@ -18,7 +18,6 @@ public class PremierLeagueApp{
 	private static Gui gui;
 
 	public static void main(String[] args) {
-		//		File dir = new File("TestMappe");
 		PLParser p = new PLParser(733);
 
 		SwingUtilities.invokeLater(new Runnable(){

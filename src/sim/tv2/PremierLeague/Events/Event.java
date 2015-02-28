@@ -33,7 +33,7 @@ public class Event implements ActionListener {
 			PremierLeagueApp.populateModel(gui.getParser().getPlayers());
 			gui.setId(id);
 			gui.getNumberOfPlayersLabel().setText("Antall spillere på " + team + " " +  gui.getParser().getPlayers().size());
-			
+			gui.getUpdateLabel().setText("");
 
 		} else if (e.getSource() == gui.getDirectoryButton()){
 			JFileChooser fileChooser = new JFileChooser(".");
@@ -71,6 +71,8 @@ public class Event implements ActionListener {
 			} else {
 				gui.disablePropertiesPanel();
 			}
+		} else if (e.getSource() == gui.getExitItem()){
+			System.exit(0);
 		}
 	}
 

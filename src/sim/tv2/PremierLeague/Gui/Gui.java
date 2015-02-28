@@ -86,6 +86,7 @@ public class Gui extends JFrame {
 	private JButton removeTeamButton;
 	private JTextField removeTeamTextField;
 	private JLabel removeTeamLabelStatus;
+	private JMenuItem exitItem;
 
 	/**
 	 * Constructor for the Gui
@@ -114,6 +115,9 @@ public class Gui extends JFrame {
 	private void setupMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Meny");
+		setExitItem(new JMenuItem("Avslutt"));
+		getExitItem().addActionListener(new Event(this));
+		menu.add(getExitItem());
 		setAbout(new JMenu("Om"));
 		setAboutItem(new JMenuItem("Om"));
 		getAbout().add(getAboutItem());
@@ -281,7 +285,6 @@ public class Gui extends JFrame {
 		setRemoveTeamLabelStatus(new JLabel());
 		centerRemovePanel.add(removeTeamLabelStatus);
 		
-
 		tabbedSettingsPane.add(settingsPanel, "Legg til lag");
 		tabbedSettingsPane.add(removeTeamPanel, "Fjerne lag");
 		disablePropertiesPanel();
@@ -778,6 +781,14 @@ public class Gui extends JFrame {
 
 	public void setRemoveTeamLabelStatus(JLabel removeTeamLabelStatus) {
 		this.removeTeamLabelStatus = removeTeamLabelStatus;
+	}
+
+	public JMenuItem getExitItem() {
+		return exitItem;
+	}
+
+	public void setExitItem(JMenuItem exitItem) {
+		this.exitItem = exitItem;
 	}
 
 
