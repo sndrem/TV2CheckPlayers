@@ -14,19 +14,24 @@ import java.util.Map;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.border.TitledBorder;
 
 import sim.tv2.PremierLeague.Events.Event;
+import sim.tv2.PremierLeague.Events.MenuEvent;
 import sim.tv2.PremierLeague.Parser.PLParser;
 import sim.tv2.PremierLeague.Player.Player;
 
@@ -65,6 +70,10 @@ public class Gui extends JFrame {
 	private JScrollPane presentPlayerScrollPane;
 	private JButton seePresentPlayersButton;
 	private JLabel sameLastNameLabel;
+	private JTabbedPane tabbedPane;
+	private JMenu about;
+	private JMenuItem aboutItem;
+	private JCheckBox checkBox;
 
 	/**
 	 * Constructor for the Gui
@@ -93,9 +102,13 @@ public class Gui extends JFrame {
 	private void setupMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Meny");
-		JMenu about = new JMenu("Om");
+		setAbout(new JMenu("Om"));
+		setAboutItem(new JMenuItem("Om"));
+		getAbout().add(getAboutItem());
+		getAboutItem().addActionListener(new MenuEvent(this));
 		menuBar.add(menu);
-		menuBar.add(about);
+		menuBar.add(getAbout());
+		
 		
 		this.setJMenuBar(menuBar);
 		
@@ -110,7 +123,9 @@ public class Gui extends JFrame {
 		this.setLayout(new BorderLayout());
 		this.setTitle("TV 2s spillersjekker");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTabbedPane(new JTabbedPane());
 		centerFrame();
+		this.add(getTabbedPane());
 	}
 	
 	/**
@@ -162,6 +177,7 @@ public class Gui extends JFrame {
 		topPanel.add(missingPlayersButton);
 		topPanel.add(getSeePresentPlayersButton());
 		this.add(topPanel, BorderLayout.NORTH);
+//		getTabbedPane().add("Hovedvindu", topPanel);
 	}
 	
 	/**
@@ -199,10 +215,38 @@ public class Gui extends JFrame {
 		setMissingPlayersLabel(new JLabel("Spillere som mangler: "));
 		centerPanel.add(getMissingPlayersLabel());
 		centerPanel.add(missingPlayerScrollPane);
+		// Legg til valg for oppdatering av lag her
+		centerPanel.add(createSettingsPanel());
 		this.add(centerPanel, BorderLayout.CENTER);
 	}
 	
-	
+	/**
+	 * Method to create a jpanel with settings
+	 */
+	private JPanel createSettingsPanel(){
+		JPanel settingsPanel = new JPanel();
+		JPanel topSettingsPanel = new JPanel();
+		settingsPanel.setLayout(new BorderLayout());
+		setCheckBox(new JCheckBox());
+		getCheckBox().setText("Vis innstillinger");
+		topSettingsPanel.add(new JLabel("Oppdater lag i dropdown"));
+		topSettingsPanel.add(getCheckBox());
+		
+		JPanel centerSettingsPanel = new JPanel();
+		JLabel teamSettingsLabel = new JLabel("Navn på lag");
+		JTextField teamSettingsTextField = new JTextField(23);
+		centerSettingsPanel.add(teamSettingsLabel);
+		centerSettingsPanel.add(teamSettingsTextField);
+		
+		JLabel teamSettingsIDLabel = new JLabel("Lag-ID fra Alt om Fotball");
+		JTextField teamSettingsIDField = new JTextField(23);
+		centerSettingsPanel.add(teamSettingsIDLabel);
+		centerSettingsPanel.add(teamSettingsIDField);
+		
+		settingsPanel.add(centerSettingsPanel, BorderLayout.CENTER);
+		settingsPanel.add(topSettingsPanel, BorderLayout.NORTH);
+		return settingsPanel;
+	}
 	
 	/**
 	 * Method to center the frame
@@ -510,6 +554,38 @@ public class Gui extends JFrame {
 
 	public void setSameLastNameLabel(JLabel sameLastNameLabel) {
 		this.sameLastNameLabel = sameLastNameLabel;
+	}
+
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
+
+	public void setTabbedPane(JTabbedPane tabbedPane) {
+		this.tabbedPane = tabbedPane;
+	}
+
+	public JMenu getAbout() {
+		return about;
+	}
+
+	public void setAbout(JMenu about) {
+		this.about = about;
+	}
+
+	public JMenuItem getAboutItem() {
+		return aboutItem;
+	}
+
+	public void setAboutItem(JMenuItem aboutItem) {
+		this.aboutItem = aboutItem;
+	}
+
+	public JCheckBox getCheckBox() {
+		return checkBox;
+	}
+
+	public void setCheckBox(JCheckBox checkBox) {
+		this.checkBox = checkBox;
 	}
 	
 	
