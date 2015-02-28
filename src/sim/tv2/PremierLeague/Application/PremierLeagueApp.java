@@ -46,12 +46,21 @@ public class PremierLeagueApp{
 
 	/**
 	 * Method to update the dropdown menu
+	 * TODO Lag exceptions dersom man ikke kan opprette nytt lag
 	 */
 	public static void updateTeamDropDown(String team, Integer id){
 		gui.getTeamsMap().put(team, id);
+		
 		for(String teamName : gui.getTeamsMap().keySet()){
 			gui.getComboBoxModel().addElement(teamName);
 		}
+	}
+	
+	/**
+	 * Method to remove a team from the dropdown
+	 */
+	public static void removeFromDropDown(String team){
+		gui.getComboBoxModel().removeElement(team);
 	}
 
 	/**

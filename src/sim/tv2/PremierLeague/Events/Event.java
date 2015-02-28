@@ -56,9 +56,21 @@ public class Event implements ActionListener {
 		} else if (e.getSource() == gui.getUpdateButton()){
 			String team = gui.getTeamSettingsTextField().getText();
 			Integer id = Integer.parseInt(gui.getTeamSettingsIDField().getText());
-			PremierLeagueApp.updateTeamDropDown(team, id);
+			PremierLeagueApp.updateTeamDropDown(team.trim(), id);
+			gui.getUpdateLabel().setText("Oppdatert dropdown med " + team + " og ID: " + id);
 			gui.getTeamSettingsIDField().setText("");
 			gui.getTeamSettingsTextField().setText("");
+		} else if (e.getSource() == gui.getRemoveTeamButton()){
+			String team = gui.getRemoveTeamTextField().getText().trim();
+			PremierLeagueApp.removeFromDropDown(team);
+			gui.getRemoveTeamTextField().setText("");
+			gui.getRemoveTeamLabelStatus().setText(team + " ble fjernet fra dropdown-menyen");
+		} else if (e.getSource() == gui.getCheckBox()){
+			if(gui.getCheckBox().isSelected()){
+				gui.enablePropertiesPanel();
+			} else {
+				gui.disablePropertiesPanel();
+			}
 		}
 	}
 

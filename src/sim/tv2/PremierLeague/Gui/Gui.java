@@ -41,7 +41,7 @@ import sim.tv2.PremierLeague.Player.Player;
  *TODO Fiks bedre kommunikasjon med brukeren ved hjelp av labels
  */
 public class Gui extends JFrame {
-	
+
 	/**
 	 * 
 	 */
@@ -82,6 +82,10 @@ public class Gui extends JFrame {
 	private List<String> teamList;
 	private String[] teamsArrays;
 	private DefaultComboBoxModel<String> comboBoxModel;
+	private JLabel updateLabel;
+	private JButton removeTeamButton;
+	private JTextField removeTeamTextField;
+	private JLabel removeTeamLabelStatus;
 
 	/**
 	 * Constructor for the Gui
@@ -89,16 +93,16 @@ public class Gui extends JFrame {
 	 */
 	public Gui(PLParser parser){
 		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		        if ("Nimbus".equals(info.getName())) {
-		            UIManager.setLookAndFeel(info.getClassName());
-		            break;
-		        }
-		    }
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
 		} catch (Exception e) {
-		    // If Nimbus is not available, you can set the GUI to another look and feel.
+			// If Nimbus is not available, you can set the GUI to another look and feel.
 		}
-		
+
 		this.setParser(parser);
 		setupFrame();
 		setupTopPanel();
@@ -106,7 +110,7 @@ public class Gui extends JFrame {
 		setupMenuBar();
 		this.setVisible(true);
 	}
-	
+
 	private void setupMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Meny");
@@ -116,11 +120,11 @@ public class Gui extends JFrame {
 		getAboutItem().addActionListener(new MenuEvent(this));
 		menuBar.add(menu);
 		menuBar.add(getAbout());
-		
-		
+
+
 		this.setJMenuBar(menuBar);
-		
-		
+
+
 	}
 
 	/**
@@ -135,7 +139,7 @@ public class Gui extends JFrame {
 		centerFrame();
 		this.add(getTabbedPane());
 	}
-	
+
 	/**
 	 * Method to setup the top panel
 	 */
@@ -183,16 +187,16 @@ public class Gui extends JFrame {
 		topPanel.add(missingPlayersButton);
 		topPanel.add(getSeePresentPlayersButton());
 		this.add(topPanel, BorderLayout.NORTH);
-//		getTabbedPane().add("Hovedvindu", topPanel);
+		//		getTabbedPane().add("Hovedvindu", topPanel);
 	}
-	
+
 	/**
 	 * Method to add the center panel of the frame
 	 */
 	private void setupCenterPanel(){
 		centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(2,5));
-		
+
 		altOmFotballInfoPanel = new JPanel();
 		altOmFotballInfoPanel.setLayout(new GridLayout(3,0));
 		directoryLabel = new JLabel("Valgt mappe: ");
@@ -200,24 +204,24 @@ public class Gui extends JFrame {
 		numberOfPlayersLabel = new JLabel("Antall spillere: ");
 		altOmFotballInfoPanel.add(numberOfPlayersLabel);
 		centerPanel.add(altOmFotballInfoPanel);
-		
+
 		playerModel = new DefaultListModel<>();
 		squadList = new JList<>(playerModel);
 		playerListScrollPane = new JScrollPane(squadList);
 		playerListScrollPane.setBorder(new TitledBorder("Hele laget"));
 		centerPanel.add(playerListScrollPane);
-		
+
 		missingPlayerModel = new DefaultListModel<Player>();
 		missingPlayers = new JList<>(missingPlayerModel);
 		missingPlayerScrollPane = new JScrollPane(missingPlayers);
 		missingPlayerScrollPane.setBorder(new TitledBorder("Spillere som mangler"));
-		
+
 		presentPlayerModel = new DefaultListModel<>();
 		presentPlayerList = new JList<>(presentPlayerModel);
 		presentPlayerScrollPane = new JScrollPane(presentPlayerList);
 		presentPlayerScrollPane.setBorder(new TitledBorder("Tilgjengelige spillere"));
 		centerPanel.add(presentPlayerScrollPane);
-		
+
 		setMissingPlayersLabel(new JLabel("Spillere som mangler: "));
 		centerPanel.add(getMissingPlayersLabel());
 		centerPanel.add(missingPlayerScrollPane);
@@ -225,7 +229,7 @@ public class Gui extends JFrame {
 		centerPanel.add(createSettingsPanel());
 		this.add(centerPanel, BorderLayout.CENTER);
 	}
-	
+
 	/**
 	 * Method to create a jpanel with settings
 	 */
@@ -235,16 +239,17 @@ public class Gui extends JFrame {
 		JPanel topSettingsPanel = new JPanel();
 		settingsPanel.setLayout(new BorderLayout());
 		setCheckBox(new JCheckBox());
+		getCheckBox().addActionListener(new Event(this));
 		getCheckBox().setText("Vis innstillinger");
 		topSettingsPanel.add(new JLabel("Legg til lag i dropdown"));
 		topSettingsPanel.add(getCheckBox());
-		
+
 		JPanel centerSettingsPanel = new JPanel();
 		teamSettingsLabel = new JLabel("Navn på lag");
 		teamSettingsTextField = new JTextField(23);
 		centerSettingsPanel.add(teamSettingsLabel);
 		centerSettingsPanel.add(teamSettingsTextField);
-		
+
 		teamSettingsIDLabel = new JLabel("Lag-ID fra Alt om Fotball");
 		teamSettingsIDField = new JTextField(23);
 		centerSettingsPanel.add(teamSettingsIDLabel);
@@ -252,13 +257,37 @@ public class Gui extends JFrame {
 		setUpdateButton(new JButton("Legg til lag"));
 		getUpdateButton().addActionListener(new Event(this));
 		centerSettingsPanel.add(getUpdateButton());
-		
+		setUpdateLabel(new JLabel(""));
+		centerSettingsPanel.add(getUpdateLabel());
+
 		settingsPanel.add(centerSettingsPanel, BorderLayout.CENTER);
 		settingsPanel.add(topSettingsPanel, BorderLayout.NORTH);
+		// Slutt på panelet for å legge til lag
+
+		// Start på panelet for å fjerne et lag.
+		JPanel removeTeamPanel = new JPanel();
+		JPanel topRemovePanel = new JPanel();
+		JPanel centerRemovePanel = new JPanel();
+		removeTeamPanel.setLayout(new BorderLayout());
+		removeTeamPanel.add(topRemovePanel, BorderLayout.NORTH);
+		removeTeamPanel.add(centerRemovePanel, BorderLayout.CENTER);
+		JLabel removeTeamLabel = new JLabel("Skriv inn laget du vil fjerne fra dropdown-menyen");
+		topRemovePanel.add(removeTeamLabel, BorderLayout.NORTH);
+		removeTeamTextField = new JTextField(25);
+		centerRemovePanel.add(removeTeamTextField, BorderLayout.CENTER);
+		removeTeamButton = new JButton("Fjern lag");
+		centerRemovePanel.add(removeTeamButton, BorderLayout.SOUTH);
+		getRemoveTeamButton().addActionListener(new Event(this));
+		setRemoveTeamLabelStatus(new JLabel());
+		centerRemovePanel.add(removeTeamLabelStatus);
+		
+
 		tabbedSettingsPane.add(settingsPanel, "Legg til lag");
+		tabbedSettingsPane.add(removeTeamPanel, "Fjerne lag");
+		disablePropertiesPanel();
 		return tabbedSettingsPane;
 	}
-	
+
 	/**
 	 * Method to center the frame
 	 */
@@ -272,6 +301,26 @@ public class Gui extends JFrame {
 
 		this.setLocation(xPos, yPos);
 	}
+
+	/**
+	 * Method to disable innstillings panel
+	 */
+	public void disablePropertiesPanel(){
+		getTeamSettingsIDField().setEnabled(false);
+		getTeamSettingsTextField().setEnabled(false);
+		getUpdateButton().setEnabled(false);
+	}
+
+	/**
+	 * Method to disable innstillings panel
+	 */
+	public void enablePropertiesPanel(){
+		getTeamSettingsIDField().setEnabled(true);
+		getTeamSettingsTextField().setEnabled(true);
+		getUpdateButton().setEnabled(true);
+	}
+
+
 
 	/**
 	 * @return the parser
@@ -686,11 +735,55 @@ public class Gui extends JFrame {
 	public void setComboBoxModel(DefaultComboBoxModel<String> comboBoxModel) {
 		this.comboBoxModel = comboBoxModel;
 	}
-	
-	
-	
-	
-	
-	
+
+	public JLabel getUpdateLabel() {
+		return updateLabel;
+	}
+
+	public void setUpdateLabel(JLabel updateLabel) {
+		this.updateLabel = updateLabel;
+	}
+
+	/**
+	 * @return the removeTeamButton
+	 */
+	public JButton getRemoveTeamButton() {
+		return removeTeamButton;
+	}
+
+	/**
+	 * @param removeTeamButton the removeTeamButton to set
+	 */
+	public void setRemoveTeamButton(JButton removeTeamButton) {
+		this.removeTeamButton = removeTeamButton;
+	}
+
+	/**
+	 * @return the removeTeamTextField
+	 */
+	public JTextField getRemoveTeamTextField() {
+		return removeTeamTextField;
+	}
+
+	/**
+	 * @param removeTeamTextField the removeTeamTextField to set
+	 */
+	public void setRemoveTeamTextField(JTextField removeTeamTextField) {
+		this.removeTeamTextField = removeTeamTextField;
+	}
+
+	public JLabel getRemoveTeamLabelStatus() {
+		return removeTeamLabelStatus;
+	}
+
+	public void setRemoveTeamLabelStatus(JLabel removeTeamLabelStatus) {
+		this.removeTeamLabelStatus = removeTeamLabelStatus;
+	}
+
+
+
+
+
+
 
 }
