@@ -7,11 +7,11 @@ import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -74,6 +74,14 @@ public class Gui extends JFrame {
 	private JMenu about;
 	private JMenuItem aboutItem;
 	private JCheckBox checkBox;
+	private JLabel teamSettingsLabel;
+	private JTextField teamSettingsTextField;
+	private JLabel teamSettingsIDLabel;
+	private JTextField teamSettingsIDField;
+	private JButton updateButton;
+	private List<String> teamList;
+	private String[] teamsArrays;
+	private DefaultComboBoxModel<String> comboBoxModel;
 
 	/**
 	 * Constructor for the Gui
@@ -154,15 +162,13 @@ public class Gui extends JFrame {
 		getTeamsMap().put("Burnley", 762);
 		getTeamsMap().put("Aston Villa", 732);
 		getTeamsMap().put("Leicester", 731);
-		
-		List<String> teamList = new ArrayList<>();
+
+		setComboBoxModel(new DefaultComboBoxModel<>());
 		for(String team : getTeamsMap().keySet()){
-			teamList.add(team);
+			getComboBoxModel().addElement(team);
 		}
-		String[] teamsArray = new String[getTeamsMap().size()];
-		teamsArray = teamList.toArray(teamsArray);
 		setDirectoryButton(new JButton("Velg mappe"));
-		teamComboBox = new JComboBox<>(teamsArray);
+		teamComboBox = new JComboBox<>(getComboBoxModel());
 		teamComboBox.addActionListener(new Event(this));
 		getDirectoryButton().addActionListener(new Event(this));
 		topPanel.add(getDirectoryButton());
@@ -223,29 +229,34 @@ public class Gui extends JFrame {
 	/**
 	 * Method to create a jpanel with settings
 	 */
-	private JPanel createSettingsPanel(){
+	private JTabbedPane createSettingsPanel(){
+		JTabbedPane tabbedSettingsPane = new JTabbedPane();
 		JPanel settingsPanel = new JPanel();
 		JPanel topSettingsPanel = new JPanel();
 		settingsPanel.setLayout(new BorderLayout());
 		setCheckBox(new JCheckBox());
 		getCheckBox().setText("Vis innstillinger");
-		topSettingsPanel.add(new JLabel("Oppdater lag i dropdown"));
+		topSettingsPanel.add(new JLabel("Legg til lag i dropdown"));
 		topSettingsPanel.add(getCheckBox());
 		
 		JPanel centerSettingsPanel = new JPanel();
-		JLabel teamSettingsLabel = new JLabel("Navn på lag");
-		JTextField teamSettingsTextField = new JTextField(23);
+		teamSettingsLabel = new JLabel("Navn på lag");
+		teamSettingsTextField = new JTextField(23);
 		centerSettingsPanel.add(teamSettingsLabel);
 		centerSettingsPanel.add(teamSettingsTextField);
 		
-		JLabel teamSettingsIDLabel = new JLabel("Lag-ID fra Alt om Fotball");
-		JTextField teamSettingsIDField = new JTextField(23);
+		teamSettingsIDLabel = new JLabel("Lag-ID fra Alt om Fotball");
+		teamSettingsIDField = new JTextField(23);
 		centerSettingsPanel.add(teamSettingsIDLabel);
 		centerSettingsPanel.add(teamSettingsIDField);
+		setUpdateButton(new JButton("Legg til lag"));
+		getUpdateButton().addActionListener(new Event(this));
+		centerSettingsPanel.add(getUpdateButton());
 		
 		settingsPanel.add(centerSettingsPanel, BorderLayout.CENTER);
 		settingsPanel.add(topSettingsPanel, BorderLayout.NORTH);
-		return settingsPanel;
+		tabbedSettingsPane.add(settingsPanel, "Legg til lag");
+		return tabbedSettingsPane;
 	}
 	
 	/**
@@ -586,6 +597,94 @@ public class Gui extends JFrame {
 
 	public void setCheckBox(JCheckBox checkBox) {
 		this.checkBox = checkBox;
+	}
+
+	/**
+	 * @return the teamSettingsLabel
+	 */
+	public JLabel getTeamSettingsLabel() {
+		return teamSettingsLabel;
+	}
+
+	/**
+	 * @param teamSettingsLabel the teamSettingsLabel to set
+	 */
+	public void setTeamSettingsLabel(JLabel teamSettingsLabel) {
+		this.teamSettingsLabel = teamSettingsLabel;
+	}
+
+	/**
+	 * @return the teamSettingsTextField
+	 */
+	public JTextField getTeamSettingsTextField() {
+		return teamSettingsTextField;
+	}
+
+	/**
+	 * @param teamSettingsTextField the teamSettingsTextField to set
+	 */
+	public void setTeamSettingsTextField(JTextField teamSettingsTextField) {
+		this.teamSettingsTextField = teamSettingsTextField;
+	}
+
+	/**
+	 * @return the teamSettingsIDLabel
+	 */
+	public JLabel getTeamSettingsIDLabel() {
+		return teamSettingsIDLabel;
+	}
+
+	/**
+	 * @param teamSettingsIDLabel the teamSettingsIDLabel to set
+	 */
+	public void setTeamSettingsIDLabel(JLabel teamSettingsIDLabel) {
+		this.teamSettingsIDLabel = teamSettingsIDLabel;
+	}
+
+	/**
+	 * @return the teamSettingsIDField
+	 */
+	public JTextField getTeamSettingsIDField() {
+		return teamSettingsIDField;
+	}
+
+	/**
+	 * @param teamSettingsIDField the teamSettingsIDField to set
+	 */
+	public void setTeamSettingsIDField(JTextField teamSettingsIDField) {
+		this.teamSettingsIDField = teamSettingsIDField;
+	}
+
+	public JButton getUpdateButton() {
+		return updateButton;
+	}
+
+	public void setUpdateButton(JButton updateButton) {
+		this.updateButton = updateButton;
+	}
+
+	public List<String> getTeamList() {
+		return teamList;
+	}
+
+	public void setTeamList(List<String> teamList) {
+		this.teamList = teamList;
+	}
+
+	public String[] getTeamsArrays() {
+		return teamsArrays;
+	}
+
+	public void setTeamsArrays(String[] teamsArrays) {
+		this.teamsArrays = teamsArrays;
+	}
+
+	public DefaultComboBoxModel<String> getComboBoxModel() {
+		return comboBoxModel;
+	}
+
+	public void setComboBoxModel(DefaultComboBoxModel<String> comboBoxModel) {
+		this.comboBoxModel = comboBoxModel;
 	}
 	
 	

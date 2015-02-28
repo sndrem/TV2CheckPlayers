@@ -53,7 +53,13 @@ public class Event implements ActionListener {
 		} else if (e.getSource() == gui.getSeePresentPlayersButton()){
 			gui.getPresentPlayerModel().clear();
 			PremierLeagueApp.setupPresentPlayer();
-		} 
+		} else if (e.getSource() == gui.getUpdateButton()){
+			String team = gui.getTeamSettingsTextField().getText();
+			Integer id = Integer.parseInt(gui.getTeamSettingsIDField().getText());
+			PremierLeagueApp.updateTeamDropDown(team, id);
+			gui.getTeamSettingsIDField().setText("");
+			gui.getTeamSettingsTextField().setText("");
+		}
 	}
 
 }

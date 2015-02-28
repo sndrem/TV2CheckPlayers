@@ -18,9 +18,9 @@ public class PremierLeagueApp{
 	private static Gui gui;
 
 	public static void main(String[] args) {
-//		File dir = new File("TestMappe");
+		//		File dir = new File("TestMappe");
 		PLParser p = new PLParser(733);
-	
+
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run(){
 				gui = new Gui(p);
@@ -43,7 +43,17 @@ public class PremierLeagueApp{
 			gui.getPlayerModel().addElement(player);
 		}
 	}
-	
+
+	/**
+	 * Method to update the dropdown menu
+	 */
+	public static void updateTeamDropDown(String team, Integer id){
+		gui.getTeamsMap().put(team, id);
+		for(String teamName : gui.getTeamsMap().keySet()){
+			gui.getComboBoxModel().addElement(teamName);
+		}
+	}
+
 	/**
 	 * Method to populate the list of missing players
 	 */
@@ -52,7 +62,7 @@ public class PremierLeagueApp{
 			gui.getMissingPlayerModel().addElement(missingPlayer);
 		}
 	}
-	
+
 	/**
 	 * Method to populate the list of missing players
 	 */
@@ -61,7 +71,7 @@ public class PremierLeagueApp{
 			gui.getPresentPlayerModel().addElement(presentPlayer);
 		}
 	}
-	
+
 	public static void setupPresentPlayer(){
 		File directory = gui.getDirectory();
 		Integer id = gui.getId();
@@ -70,7 +80,7 @@ public class PremierLeagueApp{
 			populatePresentPlayers(gui.getParser().getPresentPlayers());
 		}
 	}
-	
+
 	public static void setupMissingPlayers(){
 		File directory = gui.getDirectory();
 		Integer id = gui.getId();
