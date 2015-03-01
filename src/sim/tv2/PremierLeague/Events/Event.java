@@ -9,18 +9,26 @@ import javax.swing.JFileChooser;
 import sim.tv2.PremierLeague.Application.PremierLeagueApp;
 import sim.tv2.PremierLeague.Gui.Gui;
 import sim.tv2.PremierLeague.Parser.PLParser;
-
+/**
+ * Class used to represent the user events triggered by the Graphical User Interface
+ * @author Sindre Moldeklev
+ * @version 0.0.1
+ *
+ */
 public class Event implements ActionListener {
 
 	private Gui gui;
 	private String team;
 	private int id;
 
+	/**
+	 * Constructor for the Event class
+	 * @param gui
+	 */
 	public Event (Gui gui){
 		this.gui = gui;
 	}
 
-	// TODO fortsett med å implemtere hentingen av lag
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == gui.getTeamComboBox()){

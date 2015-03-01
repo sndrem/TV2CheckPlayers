@@ -20,11 +20,20 @@ import javax.swing.SwingUtilities;
 import sim.tv2.PremierLeague.Gui.Gui;
 import sim.tv2.PremierLeague.Parser.PLParser;
 import sim.tv2.PremierLeague.Player.Player;
-
+/**
+ * Class used to represent the logic of the application
+ * @author Sindre Moldeklev
+ * @version 0.0.1
+ *
+ */
 public class PremierLeagueApp{
 
 	private static Gui gui;
 
+	/**
+	 * Main method for the application
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		PLParser p = new PLParser(733);
 
@@ -51,11 +60,12 @@ public class PremierLeagueApp{
 		}
 	}
 	
-	// TODO Legg til metode for å lese fra fil
 	/**
 	 * Method to read the teams from a file
+	 * @param fileName
+	 * @return teams
 	 */
-	@SuppressWarnings({ "unchecked", "resource" })
+	@SuppressWarnings({ "unchecked" })
 	public static Map<String, Integer> loadTeams(String fileName){
 		FileInputStream inputStream = null;
 		ObjectInputStream objectInput = null;
@@ -65,10 +75,8 @@ public class PremierLeagueApp{
 			objectInput = new ObjectInputStream(inputStream);
 			teams = (Map<String, Integer>)objectInput.readObject();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
@@ -97,10 +105,10 @@ public class PremierLeagueApp{
 			objectOutput.writeObject(teams);
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} finally {
 			try{
@@ -124,6 +132,8 @@ public class PremierLeagueApp{
 	
 	/**
 	 * Method to remove a team from the dropdown
+	 * @param team
+	 * @return boolean
 	 */
 	public static boolean removeFromDropDown(String team){
 		boolean found = false;
@@ -143,6 +153,7 @@ public class PremierLeagueApp{
 
 	/**
 	 * Method to populate the list of missing players
+	 * @param missingPlayers
 	 */
 	public static void populateMissingPlayers(List<Player> missingPlayers){
 		for(Player missingPlayer : missingPlayers){
@@ -152,6 +163,7 @@ public class PremierLeagueApp{
 
 	/**
 	 * Method to populate the list of missing players
+	 * @param presentPlayers
 	 */
 	public static void populatePresentPlayers(List<Player> presentPlayers){
 		for(Player presentPlayer : presentPlayers){
@@ -159,6 +171,9 @@ public class PremierLeagueApp{
 		}
 	}
 
+	/**
+	 * Method to present the present players
+	 */
 	public static void setupPresentPlayer(){
 		File directory = gui.getDirectory();
 		Integer id = gui.getId();
@@ -168,6 +183,9 @@ public class PremierLeagueApp{
 		}
 	}
 
+	/**
+	 * Method to setup the missing players
+	 */
 	public static void setupMissingPlayers(){
 		File directory = gui.getDirectory();
 		Integer id = gui.getId();

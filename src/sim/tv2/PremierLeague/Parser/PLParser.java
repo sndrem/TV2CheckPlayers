@@ -15,6 +15,12 @@ import org.jsoup.select.Elements;
 
 import sim.tv2.PremierLeague.Player.Player;
 
+/**
+ * Class used to represent the the parser to get data from Alt om Fotball
+ * @author Sindre Moldeklev
+ * @version 0.0.1
+ *
+ */
 public class PLParser{
 
 	private List<Player> players;
@@ -33,6 +39,10 @@ public class PLParser{
 		}
 	}
 	
+	/**
+	 * Constructor 2 for the PLParser
+	 * @param id
+	 */
 	public PLParser(int id){
 		setPlayers(new ArrayList<>());
 		setDirectoryPlayerNames(new ArrayList<>());
@@ -72,6 +82,7 @@ public class PLParser{
 
 	/**
 	 * Method to get the players names from the internet
+	 * @param id from Alt om Fotball
 	 */
 	public void getPlayerNames(int id){
 		try {
@@ -97,6 +108,7 @@ public class PLParser{
 
 /**
  * Method to read in all fileNames from a directory
+ * @param directory
  */
 public void readDirectory(File directory){
 	File[] files = directory.listFiles();
@@ -107,6 +119,7 @@ public void readDirectory(File directory){
 
 /**
  * Method to check if a player is in a directory as a file
+ * @param fileName
  */
 public void setupSquad(String fileName){
 	for(Player player : players){
@@ -120,6 +133,7 @@ public void setupSquad(String fileName){
 
 /**
  * Method to get all the present players
+ * @return presentPlayers
  */
 public List<Player> getPresentPlayers(){
 	List<Player> presentPlayers = new ArrayList<>();
@@ -133,6 +147,7 @@ public List<Player> getPresentPlayers(){
 
 /**
  * Method to get all the non present players
+ * @return nonPresentPlayers
  */
 public List<Player> getNonPresentPlayers(){
 	List<Player> nonPresentPlayers = new ArrayList<>();
@@ -148,6 +163,7 @@ public List<Player> getNonPresentPlayers(){
 
 /**
  * Method to list out the present and not present players
+ * @deprecated
  */
 public void getWholeTeam(){
 	for(Player player : players){

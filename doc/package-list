@@ -1,0 +1,6 @@
+sim.tv2.PremierLeague.Application
+sim.tv2.PremierLeague.Events
+sim.tv2.PremierLeague.Gui
+sim.tv2.PremierLeague.Parser
+sim.tv2.PremierLeague.Player
+sim.tv2.PremierLeague.Util

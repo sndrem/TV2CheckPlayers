@@ -30,6 +30,7 @@ public class Util {
 
 	/**
 	 * Method to get the last name of a player
+	 * @return lastName of a player
 	 */
 	public static String getLastName(String name){
 		String[] nameArray = name.split("_");

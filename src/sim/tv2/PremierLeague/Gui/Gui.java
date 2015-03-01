@@ -39,13 +39,9 @@ import sim.tv2.PremierLeague.Player.Player;
 /**
  * Class representing the graphical user interface
  * @author Sindre Moldeklev
- *TODO Fiks bedre kommunikasjon med brukeren ved hjelp av labels
  */
 public class Gui extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3459732324107741611L;
 	private PLParser parser;
 	private JComboBox<String> teamComboBox;
@@ -114,6 +110,9 @@ public class Gui extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Method to setup the menuBar 
+	 */
 	private void setupMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Meny");
@@ -334,8 +333,6 @@ public class Gui extends JFrame {
 		getTeamSettingsTextField().setEnabled(true);
 		getUpdateButton().setEnabled(true);
 	}
-
-
 
 	/**
 	 * @return the parser
@@ -810,11 +807,5 @@ public class Gui extends JFrame {
 	public void setRemoveTeamComboBox(JComboBox<String> removeTeamComboBox) {
 		this.removeTeamComboBox = removeTeamComboBox;
 	}
-
-
-
-
-
-
 
 }
