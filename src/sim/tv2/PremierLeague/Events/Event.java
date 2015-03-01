@@ -64,12 +64,17 @@ public class Event implements ActionListener {
 			PremierLeagueApp.setupPresentPlayer();
 		} else if (e.getSource() == gui.getUpdateButton()){
 			String team = gui.getTeamSettingsTextField().getText();
-			Integer id = Integer.parseInt(gui.getTeamSettingsIDField().getText());
-			PremierLeagueApp.updateTeamDropDown(team.trim(), id);
-			gui.getUpdateLabel().setText("Oppdatert dropdown med " + team + " og ID: " + id);
-			gui.getTeamSettingsIDField().setText("");
-			gui.getTeamSettingsTextField().setText("");
-			PremierLeagueApp.saveTeams();
+			try{
+				Integer id = Integer.parseInt(gui.getTeamSettingsIDField().getText());				
+				PremierLeagueApp.updateTeamDropDown(team.trim(), id);
+				gui.getUpdateLabel().setText("Oppdatert dropdown med " + team + " og ID: " + id);
+				gui.getTeamSettingsIDField().setText("");
+				gui.getTeamSettingsTextField().setText("");
+				PremierLeagueApp.saveTeams();
+			} catch (NumberFormatException numberException){
+				numberException.printStackTrace();
+				gui.getUpdateLabel().setText("Ikke bruk bokstaver for ID");
+			}
 		} else if (e.getSource() == gui.getRemoveTeamButton()){
 			String team = gui.getRemoveTeamTextField().getText();
 			if(PremierLeagueApp.removeFromDropDown(team)){

@@ -24,7 +24,6 @@ import sim.tv2.PremierLeague.Player.Player;
  * Class used to represent the logic of the application
  * @author Sindre Moldeklev
  * @version 0.0.1
- *
  */
 public class PremierLeagueApp{
 
