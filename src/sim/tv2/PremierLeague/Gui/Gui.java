@@ -143,6 +143,7 @@ public class Gui extends JFrame {
 		setTabbedPane(new JTabbedPane());
 		centerFrame();
 		this.add(getTabbedPane());
+		this.setResizable(false);
 	}
 
 	/**
