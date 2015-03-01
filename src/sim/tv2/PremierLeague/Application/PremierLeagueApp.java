@@ -59,7 +59,6 @@ public class PremierLeagueApp{
 	public static Map<String, Integer> loadTeams(String fileName){
 		FileInputStream inputStream = null;
 		ObjectInputStream objectInput = null;
-		
 		Map<String, Integer> teams = new HashMap<>();
 		try {
 			inputStream = new FileInputStream(fileName);
@@ -87,9 +86,11 @@ public class PremierLeagueApp{
 	/**
 	 * Method to save the hashMap of teams
 	 */
-	public static void saveTeams(Map<String, Integer> teams){
+	public static void saveTeams(){
 		FileOutputStream outputStream = null;
 		ObjectOutputStream objectOutput = null;
+		Map<String, Integer> teams = gui.getTeamsMap();
+		
 		try {
 			outputStream = new FileOutputStream("data.ser");
 			objectOutput = new ObjectOutputStream(outputStream);
@@ -118,17 +119,26 @@ public class PremierLeagueApp{
 	 */
 	public static void updateTeamDropDown(String team, Integer id){
 		gui.getTeamsMap().put(team, id);
-		
-		for(String teamName : gui.getTeamsMap().keySet()){
-			gui.getComboBoxModel().addElement(teamName);
-		}
+		gui.getComboBoxModel().addElement(team);
 	}
 	
 	/**
 	 * Method to remove a team from the dropdown
 	 */
-	public static void removeFromDropDown(String team){
-		gui.getComboBoxModel().removeElement(team);
+	public static boolean removeFromDropDown(String team){
+		boolean found = false;
+		for(int i = 0; i < gui.getComboBoxModel().getSize(); i++){
+			if(gui.getComboBoxModel().getElementAt(i).equalsIgnoreCase(team)){
+				gui.getTeamsMap().remove(team);
+				gui.getComboBoxModel().removeElement(team);
+				found = true;
+			}
+		}
+		
+		if(found){
+			return true;
+		} else return false;
+		
 	}
 
 	/**

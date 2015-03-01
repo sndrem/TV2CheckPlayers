@@ -60,14 +60,16 @@ public class Event implements ActionListener {
 			gui.getUpdateLabel().setText("Oppdatert dropdown med " + team + " og ID: " + id);
 			gui.getTeamSettingsIDField().setText("");
 			gui.getTeamSettingsTextField().setText("");
-			PremierLeagueApp.saveTeams(gui.getTeamsMap());
+			PremierLeagueApp.saveTeams();
 		} else if (e.getSource() == gui.getRemoveTeamButton()){
 			String team = gui.getRemoveTeamTextField().getText();
-			PremierLeagueApp.removeFromDropDown(team);
-			gui.getRemoveTeamTextField().setText("");
-			gui.getRemoveTeamLabelStatus().setText(team + " ble fjernet fra dropdown-menyen");
-			// TODO Fiks lagring når du sletter et lag
-			PremierLeagueApp.saveTeams(gui.getTeamsMap());
+			if(PremierLeagueApp.removeFromDropDown(team)){
+				gui.getRemoveTeamTextField().setText("");
+				gui.getRemoveTeamLabelStatus().setText(team + " ble fjernet fra dropdown-menyen");
+				PremierLeagueApp.saveTeams();
+			} else {
+				gui.getRemoveTeamLabelStatus().setText("Gitt lag finnes ikke i dropdown-menyen");
+			}
 		} else if (e.getSource() == gui.getCheckBox()){
 			if(gui.getCheckBox().isSelected()){
 				gui.enablePropertiesPanel();
@@ -75,7 +77,7 @@ public class Event implements ActionListener {
 				gui.disablePropertiesPanel();
 			}
 		} else if (e.getSource() == gui.getExitItem()){
-			PremierLeagueApp.saveTeams(gui.getTeamsMap());
+			PremierLeagueApp.saveTeams();
 			System.exit(0);
 		}
 	}
