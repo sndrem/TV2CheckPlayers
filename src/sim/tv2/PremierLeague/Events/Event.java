@@ -34,6 +34,7 @@ public class Event implements ActionListener {
 			gui.setId(id);
 			gui.getNumberOfPlayersLabel().setText("Antall spillere på " + team + " " +  gui.getParser().getPlayers().size());
 			gui.getUpdateLabel().setText("");
+			gui.getRemoveTeamLabelStatus().setText("");
 
 		} else if (e.getSource() == gui.getDirectoryButton()){
 			JFileChooser fileChooser = new JFileChooser(".");
@@ -79,6 +80,8 @@ public class Event implements ActionListener {
 		} else if (e.getSource() == gui.getExitItem()){
 			PremierLeagueApp.saveTeams();
 			System.exit(0);
+		} else if (e.getSource() == gui.getRemoveTeamComboBox()){
+			gui.getRemoveTeamTextField().setText((String) gui.getRemoveTeamComboBox().getSelectedItem());
 		}
 	}
 

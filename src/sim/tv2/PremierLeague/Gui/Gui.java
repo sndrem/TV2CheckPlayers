@@ -88,6 +88,7 @@ public class Gui extends JFrame {
 	private JTextField removeTeamTextField;
 	private JLabel removeTeamLabelStatus;
 	private JMenuItem exitItem;
+	private JComboBox<String> removeTeamComboBox;
 
 	/**
 	 * Constructor for the Gui
@@ -292,6 +293,9 @@ public class Gui extends JFrame {
 		getRemoveTeamButton().addActionListener(new Event(this));
 		setRemoveTeamLabelStatus(new JLabel());
 		centerRemovePanel.add(removeTeamLabelStatus);
+		setRemoveTeamComboBox(new JComboBox<>(getComboBoxModel()));
+		centerRemovePanel.add(getRemoveTeamComboBox());
+		getRemoveTeamComboBox().addActionListener(new Event(this));
 		
 		tabbedSettingsPane.add(settingsPanel, "Legg til lag");
 		tabbedSettingsPane.add(removeTeamPanel, "Fjerne lag");
@@ -797,6 +801,14 @@ public class Gui extends JFrame {
 
 	public void setExitItem(JMenuItem exitItem) {
 		this.exitItem = exitItem;
+	}
+
+	public JComboBox<String> getRemoveTeamComboBox() {
+		return removeTeamComboBox;
+	}
+
+	public void setRemoveTeamComboBox(JComboBox<String> removeTeamComboBox) {
+		this.removeTeamComboBox = removeTeamComboBox;
 	}
 
 
