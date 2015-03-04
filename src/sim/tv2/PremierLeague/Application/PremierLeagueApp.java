@@ -58,7 +58,7 @@ public class PremierLeagueApp{
 			gui.getPlayerModel().addElement(player);
 		}
 	}
-	
+
 	/**
 	 * Method to read the teams from a file
 	 * @param fileName
@@ -85,11 +85,11 @@ public class PremierLeagueApp{
 				e.printStackTrace();
 			}
 		}
-		
-		
+
+
 		return teams;
 	}
-	
+
 	/**
 	 * Method to save the hashMap of teams
 	 */
@@ -97,17 +97,17 @@ public class PremierLeagueApp{
 		FileOutputStream outputStream = null;
 		ObjectOutputStream objectOutput = null;
 		Map<String, Integer> teams = gui.getTeamsMap();
-		
+
 		try {
 			outputStream = new FileOutputStream("data.ser");
 			objectOutput = new ObjectOutputStream(outputStream);
 			objectOutput.writeObject(teams);
-			
+
 		} catch (FileNotFoundException e) {
-			
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		} finally {
 			try{
@@ -117,7 +117,7 @@ public class PremierLeagueApp{
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class PremierLeagueApp{
 		gui.getTeamsMap().put(team, id);
 		gui.getComboBoxModel().addElement(team);
 	}
-	
+
 	/**
 	 * Method to remove a team from the dropdown
 	 * @param team
@@ -136,18 +136,20 @@ public class PremierLeagueApp{
 	 */
 	public static boolean removeFromDropDown(String team){
 		boolean found = false;
-		for(int i = 0; i < gui.getComboBoxModel().getSize(); i++){
-			if(gui.getComboBoxModel().getElementAt(i).equalsIgnoreCase(team)){
-				gui.getTeamsMap().remove(team);
-				gui.getComboBoxModel().removeElement(team);
-				found = true;
+		if(gui.getComboBoxModel().getSize() > 0){
+			for(int i = 0; i < gui.getComboBoxModel().getSize(); i++){
+				if(gui.getComboBoxModel().getElementAt(i).equalsIgnoreCase(team)){
+					gui.getTeamsMap().remove(team);
+					gui.getComboBoxModel().removeElement(team);
+					found = true;
+				}
 			}
 		}
-		
+
 		if(found){
 			return true;
 		} else return false;
-		
+
 	}
 
 	/**
@@ -178,7 +180,7 @@ public class PremierLeagueApp{
 		Integer id = gui.getId();
 		if(directory != null && id != null){
 			gui.setParser(new PLParser(directory, id));
-			populatePresentPlayers(gui.getParser().getPresentPlayers());
+			PremierLeagueApp.populatePresentPlayers(gui.getParser().getPresentPlayers());
 		}
 	}
 
@@ -190,7 +192,7 @@ public class PremierLeagueApp{
 		Integer id = gui.getId();
 		if(directory != null && id != null){
 			gui.setParser(new PLParser(directory, id));
-			populateMissingPlayers(gui.getParser().getNonPresentPlayers());
+			PremierLeagueApp.populateMissingPlayers(gui.getParser().getNonPresentPlayers());
 		}
 	}
 
