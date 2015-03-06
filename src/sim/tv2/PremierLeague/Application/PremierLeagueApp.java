@@ -34,9 +34,9 @@ public class PremierLeagueApp{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		PLParser p = new PLParser(733);
 
 		SwingUtilities.invokeLater(new Runnable(){
+			PLParser p = new PLParser(733);
 			public void run(){
 				gui = new Gui(p);
 			}

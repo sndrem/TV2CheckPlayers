@@ -153,7 +153,7 @@ public class Gui extends JFrame {
 		topPanel = new JPanel();
 		String fileName = "data.ser";
 		File teamsFile = new File(fileName);
-		setTeamsMap(new HashMap<>());
+		setTeamsMap(new HashMap<String, Integer>());
 		if(teamsFile.exists()){
 			setTeamsMap(PremierLeagueApp.loadTeams(fileName));
 		} else {
@@ -179,7 +179,7 @@ public class Gui extends JFrame {
 			getTeamsMap().put("Leicester", 731);
 		}
 
-		setComboBoxModel(new DefaultComboBoxModel<>());
+		setComboBoxModel(new DefaultComboBoxModel<String>());
 		for(String team : getTeamsMap().keySet()){
 			getComboBoxModel().addElement(team);
 		}

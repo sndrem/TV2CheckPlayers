@@ -30,8 +30,8 @@ public class PLParser{
 	 * Constructor for the PLParser class
 	 */
 	public PLParser(File directory, int id){
-		setPlayers(new ArrayList<>());
-		setDirectoryPlayerNames(new ArrayList<>());
+		setPlayers(new ArrayList<Player>());
+		setDirectoryPlayerNames(new ArrayList<String>());
 		readDirectory(directory);
 		getPlayerNames(id);
 		for(String fileName : directoryPlayerNames){
@@ -44,8 +44,8 @@ public class PLParser{
 	 * @param id
 	 */
 	public PLParser(int id){
-		setPlayers(new ArrayList<>());
-		setDirectoryPlayerNames(new ArrayList<>());
+		setPlayers(new ArrayList<Player>());
+		setDirectoryPlayerNames(new ArrayList<String>());
 		getPlayerNames(id);
 	}
 
