@@ -35,7 +35,7 @@ public class Util {
 	public static String getLastName(String name){
 		String[] nameArray = name.split("_");
 		if(nameArray.length > 2){
-			return nameArray[1] + nameArray[2];
+			return nameArray[1] + " " +  nameArray[2];
 		} else if (nameArray.length == 2) {
 			return nameArray[1];
 		} else if (nameArray.length < 2){
