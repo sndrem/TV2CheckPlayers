@@ -85,6 +85,7 @@ public class Gui extends JFrame {
 	private JLabel removeTeamLabelStatus;
 	private JMenuItem exitItem;
 	private JComboBox<String> removeTeamComboBox;
+	private JCheckBox nameCheckBox;
 
 	/**
 	 * Constructor for the Gui
@@ -199,6 +200,9 @@ public class Gui extends JFrame {
 		missingPlayersButton.setEnabled(false);
 		topPanel.add(missingPlayersButton);
 		topPanel.add(getSeePresentPlayersButton());
+		setNameCheckBox(new JCheckBox("Støtte for spillere med mellomnavn"));
+		getNameCheckBox().setEnabled(false);
+		topPanel.add(getNameCheckBox());
 		this.add(topPanel, BorderLayout.NORTH);
 		//		getTabbedPane().add("Hovedvindu", topPanel);
 	}
@@ -807,6 +811,14 @@ public class Gui extends JFrame {
 
 	public void setRemoveTeamComboBox(JComboBox<String> removeTeamComboBox) {
 		this.removeTeamComboBox = removeTeamComboBox;
+	}
+
+	public JCheckBox getNameCheckBox() {
+		return nameCheckBox;
+	}
+
+	public void setNameCheckBox(JCheckBox nameCheckBox) {
+		this.nameCheckBox = nameCheckBox;
 	}
 
 }
