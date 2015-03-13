@@ -41,7 +41,6 @@ public class PremierLeagueApp{
 				gui = new Gui(p);
 			}
 		});
-
 	}
 
 	/**

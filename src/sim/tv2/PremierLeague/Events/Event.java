@@ -20,6 +20,7 @@ public class Event implements ActionListener {
 	private Gui gui;
 	private String team;
 	private int id;
+	private String directory;
 
 	/**
 	 * Constructor for the Event class
@@ -27,6 +28,7 @@ public class Event implements ActionListener {
 	 */
 	public Event (Gui gui){
 		this.gui = gui;
+		directory = ".";
 	}
 
 	@Override
@@ -45,10 +47,11 @@ public class Event implements ActionListener {
 			gui.getRemoveTeamLabelStatus().setText("");
 
 		} else if (e.getSource() == gui.getDirectoryButton()){
-			JFileChooser fileChooser = new JFileChooser(".");
+			JFileChooser fileChooser = new JFileChooser(directory);
 			fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			int choice = fileChooser.showOpenDialog(gui);
 			if(choice == JFileChooser.APPROVE_OPTION){
+				directory = fileChooser.getSelectedFile().getAbsolutePath();
 				gui.setDirectory(fileChooser.getSelectedFile());
 				gui.getDirectoryLabel().setText("Valgt mappe: " + gui.getDirectory().getName());
 				gui.getMissingPlayersButton().setEnabled(true);
