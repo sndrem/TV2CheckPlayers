@@ -168,16 +168,16 @@ public class Gui extends JFrame {
 			getTeamsMap().put("West Ham", 724);
 			getTeamsMap().put("Swansea", 791);
 			getTeamsMap().put("Stoke", 794);
-			getTeamsMap().put("Newcastle", 736);
+			getTeamsMap().put("Hull", 834);
 			getTeamsMap().put("Everton", 730);
 			getTeamsMap().put("Crystal P.", 767);
 			getTeamsMap().put("West Brom.", 783);
-			getTeamsMap().put("Hull City", 834);
 			getTeamsMap().put("Sunderland", 737);
-			getTeamsMap().put("QPR", 768);
 			getTeamsMap().put("Burnley", 762);
-			getTeamsMap().put("Aston Villa", 732);
+			getTeamsMap().put("Middlesbrough", 726);
 			getTeamsMap().put("Leicester", 731);
+			getTeamsMap().put("Watford", 781);
+			getTeamsMap().put("Bournemouth", 788);
 		}
 
 		setComboBoxModel(new DefaultComboBoxModel<String>());
