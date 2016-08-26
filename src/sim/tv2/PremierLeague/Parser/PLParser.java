@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -91,7 +92,7 @@ public class PLParser{
 			Elements names = (Elements) table.getElementsByTag("a");
 			
 			for(Element name : names){
-				players.add(new Player(name.html().replaceAll("&nbsp;", "_")));
+				players.add(new Player(StringUtils.stripAccents(name.html().replaceAll("&nbsp;", "_"))));
 			}
 
 		} catch (NumberFormatException e){
