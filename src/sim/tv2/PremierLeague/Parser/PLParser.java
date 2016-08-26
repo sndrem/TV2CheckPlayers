@@ -123,7 +123,7 @@ public void readDirectory(File directory){
  */
 public void setupSquad(String fileName){
 	for(Player player : players){
-		if(player.getLastName() != null && player.getLastName().equalsIgnoreCase(fileName)){
+		if(player.getLastName() != null && fileName.contains(player.getLastName())){
 			player.setPresent(true);
 		} else if (player.getFirstName() != null && player.getFirstName().equalsIgnoreCase(fileName)){
 			player.setPresent(true);
