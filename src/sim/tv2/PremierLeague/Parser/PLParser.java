@@ -92,7 +92,9 @@ public class PLParser{
 			Elements names = (Elements) table.getElementsByTag("a");
 			
 			for(Element name : names){
-				players.add(new Player(StringUtils.stripAccents(name.html().replaceAll("&nbsp;", "_"))));
+				String strippedName = StringUtils.stripAccents(name.html().replaceAll("&nbsp;", "_"));
+				players.add(new Player(strippedName));
+				
 			}
 
 		} catch (NumberFormatException e){
